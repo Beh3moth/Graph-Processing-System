@@ -8,37 +8,51 @@ int main(int argc, char *argv[]) {
 
     //Variables
     char *input = NULL;
-    long int nodesNumber = 0;
-    long int rankingLength = 0;
+    long long int nodesNumber = 0;
+    long long int rankingLength = 0;
     size_t len = 0;
-    ssize_t lineSize = 0;
+    //ssize_t lineSize = 0;
 
-    lineSize = getline(&input, &len, stdin);
+    getline(&input, &len, stdin);
 
     takeFirstTwoNumbers(input, &nodesNumber, &rankingLength);
 
     //Print d and k
-    printf("%ld", nodesNumber);
+    printf("%lld", nodesNumber);
     printf("%c", ' ');
-    printf("%ld", rankingLength);
+    printf("%lld", rankingLength);
     printf("%s", "\n");
 
     //Initialization of the adjacency Matrix
-    long int adjacencyMatrix[nodesNumber][nodesNumber];
+    long long int adjacencyMatrix[nodesNumber][nodesNumber];
 
     //Command's cycle
     while(1){
-        lineSize = getline(&input, &len, stdin);
+
+        getline(&input, &len, stdin);
         if(strcmp(input, "TopK\r\n") == 0){
             //return the result
             break;
         }
         else if(strcmp(input, "AggiungiGrafo\r\n") == 0) {
             fputs("AggiungiGrafo\n", stdout);
-            lineSize = getline(&input, &len, stdin);
+
             for(int i=0; i<nodesNumber; i++){
-                //fillAdjacencyMatrix(&adjacencyMatrix[i][0], nodesNumber, graphInput);
+                if(getline(&input, &len, stdin)==-1){
+                    printf("%s", "getLine failure");
+                }
+                fillAdjacencyMatrix(&adjacencyMatrix[i][0], nodesNumber, input);
             }
+
+
+            for(int k=0; k<nodesNumber; k++){
+                for(int p=0; p<nodesNumber; p++){
+                    printf("%lld", adjacencyMatrix[k][p]);
+                    printf("%c", ',');
+                }
+                printf("%s", "\n");
+            }
+
         }
     }
 
