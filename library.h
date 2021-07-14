@@ -15,19 +15,20 @@ void takeFirstTwoNumbers(char * input, long long int * nodesNumber, long long in
     *rankingLength = strtol(endPtr, &endPtr, 10);
 }
 
-long long int takeNumber(char * line){
-    if(*line == ','){
-        line++;
-    }
-    long long int number = strtol(line, &line, 10);
-    return number;
-}
-
 //MATRIX MANAGEMENT METHODS
 
+/**
+ *
+ * @param adjacencyMatrix
+ * @param nodesNumber
+ * @param line
+ */
 void fillAdjacencyMatrix(long long int * adjacencyMatrix, long long int nodesNumber, char * line){
     for(int j=0; j<nodesNumber; j++){
-        *(adjacencyMatrix + j) = takeNumber(line);
+        if(*line == ','){
+            line++;
+        }
+        *(adjacencyMatrix + j) = strtol(line, &line, 10);
     }
 }
 
