@@ -22,7 +22,7 @@ long int findCommaPosition(const char *input){
  * @param nodesNumber is the number of nodes (long int).
  * @param rankingLength is the length of the rank (long int).
  */
-void takeFirstLine(char * input, long int * nodesNumber, long int * rankingLength) {
+void takeFirstTwoNumbers(char * input, long int * nodesNumber, long int * rankingLength) {
     char * endPtr;
     *nodesNumber = strtol(input, &endPtr, 10);
     *rankingLength = strtol(endPtr, &endPtr, 10);
