@@ -1,14 +1,16 @@
 #ifndef UNTITLED_LIBRARY_H
 #define UNTITLED_LIBRARY_H
 
+//TEXT MANAGEMENT METHODS
+
 /**
  * The function returns the comma position starting from zero.
- * @param input is a
- * @return
+ * @param input is a buffer of text. The first char can't be a comma.
+ * @return an integer of the position of the first space.
  */
-long int findSpacePosition(const char *input){
+long int findCommaPosition(const char *input){
     long int i = 0;
-    while(input[i] != ' '){
+    while(input[i] != ','){
         i++;
     }
     return i;
@@ -20,21 +22,27 @@ long int findSpacePosition(const char *input){
  * @param nodesNumber is the number of nodes (long int).
  * @param rankingLength is the length of the rank (long int).
  */
-void takeFirstLine(char * input, long int * nodesNumber, long int * rankingLength){
+void takeFirstLine(char * input, long int * nodesNumber, long int * rankingLength) {
+    char * endPtr;
+    *nodesNumber = strtol(input, &endPtr, 10);
+    *rankingLength = strtol(endPtr, &endPtr, 10);
+}
 
-    long int spacePosition = findSpacePosition(input);
+long int takeNumber(char * line, long int i){
+    long int commaPosition  = findCommaPosition(line + i);
+    long int * number = malloc(sizeof(long int));
+    memcpy(number, line+i, (unsigned long) (line + i - commaPosition * sizeof(char)));
+    return (long int) number;
+}
 
-    //Copy the first number
-    long int *d = malloc(sizeof(long int));
-    memcpy(d, input, spacePosition * sizeof(char));
+//MATRIX MANAGEMENT METHODS
 
-    //Copy the second number
-    long int *k = malloc(sizeof(long int));
-    memcpy(k, input+spacePosition+1, sizeof(long int));
-
-    *nodesNumber = (long int) d;
-    *rankingLength = (long int) k;
-
+void fillAdjacencyMatrix(long int * adjacencyMatrix, long int nodesNumber, char * line){
+    for(int i=0; i<nodesNumber; i++){
+        for(int j=0; j<nodesNumber; j++){
+            *(adjacencyMatrix + j) = takeNumber(line, j);
+        }
+    }
 }
 
 #endif //UNTITLED_LIBRARY_H

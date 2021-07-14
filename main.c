@@ -10,23 +10,28 @@
 
 int main(int argc, char *argv[]) {
 
-    //Take the first line
-    char *firstInput;
-    firstInput = malloc(MAX_FIRST_INPUT_SIZE * sizeof(char));
-    fgets(firstInput, MAX_FIRST_INPUT_SIZE, stdin);
-
+    //Variables
+    char *firstInput = malloc(MAX_FIRST_INPUT_SIZE * sizeof(char));
+    char *commandInput = malloc( MAX_COMMAND_INPUT_SIZE * sizeof(char) );
+    char *graphInput = malloc( MAX_GRAPH_SIZE * sizeof(char) );
     long int nodesNumber = 0;
     long int rankingLength = 0;
 
+    //Take the first line
+    fgets(firstInput, MAX_FIRST_INPUT_SIZE, stdin);
     takeFirstLine(firstInput, &nodesNumber, &rankingLength);
 
-    fputs((const char *) nodesNumber, stdout);
-    fputs("\n", stdout);
-    fputs((const char *) rankingLength, stdout);
+    //Print d and k
+    printf("%ld", nodesNumber);
+    printf("%c", ' ');
+    printf("%ld", rankingLength);
+    printf("%s", "\n");
 
-    char *commandInput = malloc( MAX_COMMAND_INPUT_SIZE * sizeof(char) );
-    char *graphInput = malloc( MAX_GRAPH_SIZE * sizeof(char) );
 
+    //Initialization of the adjacency Matrix
+    long int adjacencyMatrix[nodesNumber][nodesNumber];
+
+    //Command's cycle
     while(1){
         fgets(commandInput, MAX_COMMAND_INPUT_SIZE, stdin);
         if(strcmp(commandInput, "TopK\r\n") == 0){
@@ -36,6 +41,9 @@ int main(int argc, char *argv[]) {
         else if(strcmp(commandInput, "AggiungiGrafo\r\n") == 0) {
             fputs("AggiungiGrafo\n", stdout);
             fgets(graphInput, MAX_GRAPH_SIZE, stdin);
+            for(int i=0; i<nodesNumber; i++){
+                //fillAdjacencyMatrix(&adjacencyMatrix[i][0], nodesNumber, graphInput);
+            }
         }
     }
 
