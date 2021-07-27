@@ -5,73 +5,7 @@
 
 #include "library.h"
 
-typedef struct node {
-    long long int graphIndex;
-    long long int sumValue;
-    struct node * next;
-} node_t;
 
-void print_list(node_t * head, long long int rankingLength) {
-    node_t * current = head;
-    long long int counter = 0;
-    while (current != NULL && counter<rankingLength) {
-        printf("%lld ", current->graphIndex);
-        current = current->next;
-        counter++;
-    }
-}
-
-node_t* insertNode(node_t * head, long long int sumValue, long long int graphIndex, long long int rankingLength){
-
-    node_t *newNode, *prevNode, *nextNode;
-    node_t *headBackup;
-
-    newNode = (node_t *) malloc(sizeof(node_t));
-    newNode->graphIndex = graphIndex;
-    newNode->sumValue = sumValue;
-    newNode->next = NULL;
-
-    //Insert in head
-    if((head) == NULL){
-        (head) = newNode;
-    }
-    else {
-
-        nextNode = (head);
-        prevNode = NULL;
-        headBackup = (head);
-
-        long long int counter = 0;
-        while(nextNode != NULL && sumValue >= nextNode->sumValue && counter < rankingLength){
-            prevNode = nextNode;
-            counter++;
-            nextNode = nextNode->next;
-        }
-
-        if(counter<rankingLength){
-            //inserimento alla fine
-            if(nextNode == NULL){
-                prevNode->next = newNode;
-                //(head) = headBackup;
-            } else{
-                //inserimento in mezzo
-                if(prevNode != NULL) {
-                    newNode->next = prevNode->next;
-                    prevNode->next = newNode;
-                    //(head) = headBackup;
-                } else {
-                    //inserimento in testa
-                    newNode->next = (head);
-                    (head) = newNode;
-                }
-            }
-        }
-
-
-    }
-
-    return head;
-}
 
 int main(int argc, char *argv[]) {
 
@@ -87,8 +21,6 @@ int main(int argc, char *argv[]) {
     getline(&input, &len, stdin);
 
     takeFirstTwoNumbers(input, &nodesNumber, &rankingLength);
-
-    setNodesNumber(nodesNumber);
 
     //Print d and k
     printf("%lld", nodesNumber);
@@ -131,8 +63,7 @@ int main(int argc, char *argv[]) {
                 printf("%s", "\n");
             }
 
-            head = insertNode(head, dijkstra(adjacencyMatrix), graphIndex, rankingLength);
-            print_list(head, rankingLength);
+            head = insertNode(head, dijkstra(nodesNumber, adjacencyMatrix), graphIndex, rankingLength);
             graphIndex++;
 
         }
