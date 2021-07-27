@@ -15,35 +15,27 @@ int main(int argc, char *argv[]) {
     long long int rankingLength = 0;
     size_t len = 0;
     node_t *head = NULL;
+    long long int graphIndex = 0;
 
-    //ssize_t lineSize = 0;
 
-    getline(&input, &len, stdin);
+    if(getline(&input, &len, stdin)<=0){
+        fputs("GetLine ERROR!", stdout);
+    }
 
     takeFirstTwoNumbers(input, &nodesNumber, &rankingLength);
 
-    //Print d and k
-    printf("%lld", nodesNumber);
-    printf("%c", ' ');
-    printf("%lld", rankingLength);
-    printf("%s", "\n");
-
-    //Initialization of the adjacency Matrix
+    //Instantiation of the adjacency Matrix
     long long int adjacencyMatrix[nodesNumber][nodesNumber];
-    long long int graphIndex = 0;
 
     //Command's cycle
-    while(1){
+    while( getline(&input, &len, stdin)!=-1 ){
 
-        getline(&input, &len, stdin);
-        if(strcmp(input, "TopK\r\n") == 0){
-            fputs("TopK: ", stdout);
+        if(strcmp(input, "TopK\r\n") == 0 || strcmp(input, "TopK\r") == 0 || strcmp(input, "TopK") == 0){
+
             print_list(head, rankingLength);
-            break;
+
         }
         else if(strcmp(input, "AggiungiGrafo\r\n") == 0) {
-
-            fputs("AggiungiGrafo\n", stdout);
 
             //Fill the adjacencyMatrix
             for(int i=0; i<nodesNumber; i++){
@@ -53,16 +45,6 @@ int main(int argc, char *argv[]) {
                 }
                 fillAdjacencyMatrix(&adjacencyMatrix[i][0], nodesNumber, input);
             }
-
-            //Print the adjacencyMatrix
-            for(int k=0; k<nodesNumber; k++){
-                for(int p=0; p<nodesNumber; p++){
-                    printf("%lld", adjacencyMatrix[k][p]);
-                    printf("%c", ',');
-                }
-                printf("%s", "\n");
-            }
-
             head = insertNode(head, dijkstra(nodesNumber, adjacencyMatrix), graphIndex, rankingLength);
             graphIndex++;
 

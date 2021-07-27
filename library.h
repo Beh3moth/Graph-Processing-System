@@ -7,26 +7,17 @@
 
 //TEXT MANAGEMENT FUNCTIONS
 
-/**
- * The method takes a line containing two numbers and puts the values in nodes and in rankingLength.
- * @param input is the input's first line.
- * @param nodesNumber is the number of nodes (long long int).
- * @param rankingLength is the length of the rank (long long int).
- */
 void takeFirstTwoNumbers(char * input, long long int * nodesNumber, long long int * rankingLength) {
     char * endPtr;
     *nodesNumber = strtol(input, &endPtr, 10);
+    if(*endPtr == ' ' || *endPtr == ','){
+        endPtr++;
+    }
     *rankingLength = strtol(endPtr, &endPtr, 10);
 }
 
 //MATRIX MANAGEMENT FUNCTIONS
 
-/**
- * The function
- * @param adjacencyMatrix is a pointer to the beginning of an array row.
- * @param nodesNumber is the number of nodes of a graph.
- * @param line is the line to put in the array.
- */
 void fillAdjacencyMatrix(long long int * adjacencyMatrix, long long int nodesNumber, char * line){
     for(int j=0; j<nodesNumber; j++){
         if(*line == ','){
@@ -145,7 +136,6 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         }
     }
 
-    printf("%lld\n", sum);
     return sum;
 
 }
@@ -166,12 +156,12 @@ void print_list(node_t * head, long long int rankingLength) {
         current = current->next;
         counter++;
     }
+    fputs("\n", stdout);
 }
 
 node_t* insertNode(node_t * head, long long int sumValue, long long int graphIndex, long long int rankingLength){
 
     node_t *newNode, *prevNode, *nextNode;
-    node_t *headBackup;
 
     newNode = (node_t *) malloc(sizeof(node_t));
     newNode->graphIndex = graphIndex;
@@ -186,7 +176,6 @@ node_t* insertNode(node_t * head, long long int sumValue, long long int graphInd
 
         nextNode = (head);
         prevNode = NULL;
-        headBackup = (head);
 
         long long int counter = 0;
         while(nextNode != NULL && sumValue >= nextNode->sumValue && counter < rankingLength){
