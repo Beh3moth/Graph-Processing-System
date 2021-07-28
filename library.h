@@ -112,7 +112,7 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
                     }
                     else {
                         if(matrix[index][i]!=0){
-                            newDist = distances[index] + matrix[index][i] ;
+                            newDist = distances[index] + matrix[index][i];
                         }
                         else {
                             newDist = INFINITE;
@@ -136,7 +136,10 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         }
     }
 
-    return sum;
+    if(sum==0){
+        return 9223372036854775807;
+    }
+    else return sum;
 
 }
 
@@ -151,12 +154,21 @@ typedef struct node {
 void print_list(node_t * head, long long int rankingLength) {
     node_t * current = head;
     long long int counter = 0;
-    while (current != NULL && counter<rankingLength) {
-        printf("%lld ", current->graphIndex);
-        current = current->next;
-        counter++;
+    if(current==NULL){
+        fputs("\n", stdout);
     }
-    fputs("\n", stdout);
+    else {
+        while (current != NULL && counter<rankingLength) {
+            fprintf(stdout, "%lld", current->graphIndex);
+            if(counter!=rankingLength-1){
+                fputs(" ", stdout);
+            }
+            current = current->next;
+            counter++;
+        }
+        fputs("\n", stdout);
+        fflush(stdout);
+    }
 }
 
 node_t* insertNode(node_t * head, long long int sumValue, long long int graphIndex, long long int rankingLength){
@@ -177,6 +189,7 @@ node_t* insertNode(node_t * head, long long int sumValue, long long int graphInd
         nextNode = (head);
         prevNode = NULL;
 
+        //Iteration
         long long int counter = 0;
         while(nextNode != NULL && sumValue >= nextNode->sumValue && counter < rankingLength){
             prevNode = nextNode;
