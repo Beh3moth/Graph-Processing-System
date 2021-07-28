@@ -136,10 +136,10 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         }
     }
 
-    if(sum==0){
-        return 9223372036854775807;
-    }
-    else return sum;
+    fprintf(stdout, "%lld ", sum);
+    fputs("\n", stdout);
+
+    return sum;
 
 }
 
@@ -193,8 +193,8 @@ node_t* insertNode(node_t * head, long long int sumValue, long long int graphInd
         long long int counter = 0;
         while(nextNode != NULL && sumValue >= nextNode->sumValue && counter < rankingLength){
             prevNode = nextNode;
-            counter++;
             nextNode = nextNode->next;
+            counter++;
         }
 
         if(counter<rankingLength){
