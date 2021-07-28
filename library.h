@@ -137,6 +137,8 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         }
     }
 
+    fprintf(stdout, "%lld\n", sum);
+
     return sum;
 
 }
@@ -152,20 +154,16 @@ typedef struct node {
 void print_list(node_t * head, long long int rankingLength) {
     node_t * current = head;
     long long int counter = 0;
-    if(current==NULL){
-        fputs("\n", stdout);
-    }
-    else {
-        while (current != NULL && counter<rankingLength) {
-            fprintf(stdout, "%lld", current->graphIndex);
-            if(counter!=rankingLength-1 && current->next!=NULL){
-                fputs(" ", stdout);
-            }
-            current = current->next;
-            counter++;
+
+    while (current != NULL && counter<rankingLength) {
+        fprintf(stdout, "%lld", current->graphIndex);
+        if(counter!=rankingLength-1 && current->next!=NULL){
+            fputs(" ", stdout);
         }
-        fputs("\n", stdout);
+        current = current->next;
+        counter++;
     }
+    fputs("\n", stdout);
 }
 
 node_t* insertNode(node_t * head, long long int sumValue, long long int graphIndex, long long int rankingLength){
