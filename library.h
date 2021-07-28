@@ -95,13 +95,14 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         deleteElement(&priorityQueue[0], index, &priorityQueueMinValue, &priorityQueueMinIndex, &priorityQueueSize, nodesNumber);
         visited[index] = true;
 
-        //If the distance of the node is bigger in the distances array than in the heap
+        //Start to iterate over a node
         if(distances[index]==INFINITE || (distances[index] >= minValue && distances[index]!=INFINITE)){
             //For every node index
             for(int i=0; i<nodesNumber; i++){
-                //If the node is set as not visited
                 long long int newDist;
+                //If the node is set as not visited
                 if(!visited[i]){
+                    //Calc newDist
                     if(distances[index]==INFINITE){
                         if(matrix[index][i]!=0){
                             newDist = distances[index] + matrix[index][i] + 1;
@@ -157,14 +158,13 @@ void print_list(node_t * head, long long int rankingLength) {
     else {
         while (current != NULL && counter<rankingLength) {
             fprintf(stdout, "%lld", current->graphIndex);
-            if(counter!=rankingLength-1){
+            if(counter!=rankingLength-1 && current->next!=NULL){
                 fputs(" ", stdout);
             }
             current = current->next;
             counter++;
         }
         fputs("\n", stdout);
-        fflush(stdout);
     }
 }
 
