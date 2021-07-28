@@ -30,12 +30,12 @@ int main(int argc, char *argv[]) {
     //Command's cycle
     while( getline(&input, &len, stdin)!=-1 ){
 
-        if(strcmp(input, "TopK\r\n") == 0 || strcmp(input, "TopK\r") == 0 || strcmp(input, "TopK") == 0){
+        if(strcmp(input, "TopK\r\n") == 0 || strcmp(input, "TopK\r") == 0 || strcmp(input, "TopK") == 0 || strcmp(input, "TopK\n") == 0){
 
             print_list(head, rankingLength);
 
         }
-        else if(strcmp(input, "AggiungiGrafo\r\n") == 0) {
+        else if(strcmp(input, "AggiungiGrafo\r\n") == 0 || strcmp(input, "AggiungiGrafo\n") == 0){
 
             //Fill the adjacencyMatrix
             for(int i=0; i<nodesNumber; i++){

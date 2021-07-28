@@ -136,9 +136,6 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         }
     }
 
-    fprintf(stdout, "%lld ", sum);
-    fputs("\n", stdout);
-
     return sum;
 
 }
