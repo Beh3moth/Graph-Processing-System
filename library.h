@@ -1,7 +1,7 @@
 #ifndef UNTITLED_LIBRARY_H
 #define UNTITLED_LIBRARY_H
 
-#define INFINITE -1
+#define INFINITE 9223372036854775807
 #define UNDEFINED -2
 #define DELETED -3
 
@@ -58,7 +58,7 @@ void deleteElement(long long int * priorityQueue, long long int graphIndex, long
         *(priorityQueue + graphIndex) = DELETED;
         long long int newMinIndex = findMinValueIndex(priorityQueue, nodesNumber);
         (*priorityQueueMinIndex) = newMinIndex;
-        (*priorityQueueMinValue) = (*priorityQueue + newMinIndex);
+        (*priorityQueueMinValue) = *(priorityQueue + newMinIndex);
     }
     (*priorityQueueSize)--;
 
@@ -95,14 +95,13 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
         deleteElement(&priorityQueue[0], index, &priorityQueueMinValue, &priorityQueueMinIndex, &priorityQueueSize, nodesNumber);
         visited[index] = true;
 
-        //Start to iterate over a node
+        //If the distance of the node is bigger in the distances array than in the heap
         if(distances[index]==INFINITE || (distances[index] >= minValue && distances[index]!=INFINITE)){
             //For every node index
             for(int i=0; i<nodesNumber; i++){
-                long long int newDist;
                 //If the node is set as not visited
+                long long int newDist;
                 if(!visited[i]){
-                    //Calc newDist
                     if(distances[index]==INFINITE){
                         if(matrix[index][i]!=0){
                             newDist = distances[index] + matrix[index][i] + 1;
@@ -136,8 +135,6 @@ long long int dijkstra(long long int nodesNumber, long long int matrix[nodesNumb
             sum += distances[i];
         }
     }
-
-    fprintf(stdout, "%lld\n", sum);
 
     return sum;
 
